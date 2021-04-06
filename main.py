@@ -12,7 +12,7 @@ if performMarkDupsEnv.upper()in ["0", "FALSE"]:
     performMarkDupsEnv = False
 if not os.path.isdir(inputFolderEnv):
     raise NotADirectoryError("Unable to find input folder at %s" %inputFolderEnv)
-expectedVariantsFileEnv = os.environ.setdefault("PRIMERBED", os.path.join(inputFolderEnv, "commonVariants.vcf"))
+expectedVariantsFileEnv = os.environ.setdefault("EXPECTEDVARIANTS", os.path.join(inputFolderEnv, "commonVariants.vcf"))
 if not os.path.isfile(expectedVariantsFileEnv):
     expectedVariantsFile = None
 referenceGenomeFileEnv = os.environ.setdefault("REFGENOME", os.path.join(inputFolderEnv, "reference.fa"))
@@ -42,7 +42,7 @@ if not os.path.isdir(filteredVCFFolderEnv):
 alignmentArtifactFilterFolderEnv = os.environ.setdefault("ALIGNMENTARTIFACTFILTERFOLDER", os.path.join(workingFolderEnv,"alignmentArtifactFilteredVCF"))
 if not os.path.isdir(alignmentArtifactFilterFolderEnv):
     os.mkdir(alignmentArtifactFilterFolderEnv)
-readgroupsFileEnv = os.environ.setdefault(workingFolderEnv, os.path.join(workingFolderEnv, "rawBAM", "readgroups.json"))
+readgroupsFileEnv = os.environ.setdefault("READGROUPSFILE", os.path.join(workingFolderEnv, "rawBAM", "readgroups.json"))
 if not os.path.isfile(readgroupsFileEnv):
     readgroupsFileEnv = None
 
