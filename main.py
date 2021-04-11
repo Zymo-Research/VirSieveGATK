@@ -48,7 +48,6 @@ if not os.path.isdir(alignmentArtifactFilterFolderEnv):
 readgroupsFileEnv = os.environ.setdefault("READGROUPSFILE", os.path.join(workingFolderEnv, "rawBAM", "readgroups.json"))
 if not os.path.isfile(readgroupsFileEnv):
     readgroupsFileEnv = None
-depthOfCoverageFolder = os.environ
 
 
 def markDuplicates(inputFilePath:str, outputFolder:str=dedupReadFolderEnv):
