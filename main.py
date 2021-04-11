@@ -36,6 +36,9 @@ if not os.path.isdir(bqsrReadsFolderEnv):
 rawVCFFolderEnv = os.environ.setdefault("RAWVCFFOLDER", os.path.join(workingFolderEnv, "rawVCF"))
 if not os.path.isdir(rawVCFFolderEnv):
     os.mkdir(rawVCFFolderEnv)
+depthOfCoverageFolderEnv = os.environ.setdefault("DEPTHOFCOVERAGEFOLDER", os.path.join(rawVCFFolderEnv, "coverage"))
+if not os.path.isdir(depthOfCoverageFolderEnv):
+    os.mkdir(depthOfCoverageFolderEnv)
 filteredVCFFolderEnv = os.environ.setdefault("FILTEREDVCFFOLDER", os.path.join(workingFolderEnv, "filteredVCF"))
 if not os.path.isdir(filteredVCFFolderEnv):
     os.mkdir(filteredVCFFolderEnv)
@@ -60,6 +63,11 @@ def runBQSR(inputFilePath:str, outputFolder:str=bqsrReadsFolderEnv):
 def runMutect2(inputFilePath:str, outputFolder:str=rawVCFFolderEnv):
     rawVCF, orientationBiasFile, mutectBAMOut = gatkSupport.mutect.runMutect2(inputFilePath, outputFolder)
     return rawVCF, orientationBiasFile, mutectBAMOut
+
+
+def runDepthOfCoverage(inputFilePath:str, outputFolder:str=depthOfCoverageFolderEnv):
+    depthOfCoverageFileBaseName = gatkSupport.coverage.runDepthOfCoverage(inputFilePath, outputFolder)
+    return depthOfCoverageFileBaseName
 
 
 def runOrientationBiasFilter(inputVCF:str, orientationBiasFile:str, outputFolder:str=filteredVCFFolderEnv):
@@ -121,6 +129,7 @@ def main():
             deduplicatedBAM = readGroupedBAM
         bqsrBAM = runBQSR(deduplicatedBAM)
         rawVCF, orientationBiasFile, mutectBAMOut = runMutect2(bqsrBAM)
+        depthOfCoverageFileBaseName = runDepthOfCoverage(bqsrBAM)
         orientationFilteredVCF = runOrientationBiasFilter(rawVCF, orientationBiasFile)
         alignmentArtifactFilteredVCF = filterAlignmentArtifacts(orientationFilteredVCF, mutectBAMOut)
         completedVCFs.append(alignmentArtifactFilteredVCF)

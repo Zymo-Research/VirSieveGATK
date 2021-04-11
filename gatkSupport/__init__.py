@@ -1,4 +1,4 @@
-__all__ = ["bqsr", "markDuplicates", "mutect", "orientationBiasFilter", "samtools", "readGroups", "filterAlignmentArtifact"]
+__all__ = ["bqsr", "markDuplicates", "mutect", "orientationBiasFilter", "samtools", "readGroups", "filterAlignmentArtifact", "coverage"]
 
 from . import bqsr
 from . import markDuplicates
@@ -7,4 +7,5 @@ from . import orientationBiasFilter
 from . import samtools
 from . import readGroups
 from . import filterAlignmentArtifact
+from . import coverage
 
