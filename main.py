@@ -8,7 +8,7 @@ if not os.path.isdir(workingFolderEnv):
     raise NotADirectoryError("Unable to find working directory at %s" %workingFolderEnv)
 inputFolderEnv = os.environ.setdefault("INPUTFOLDER", os.path.join(workingFolderEnv, "primerTrimBAM"))
 performMarkDupsEnv = os.environ.setdefault("MARKDUPLICATES", "0")
-if performMarkDupsEnv.upper()in ["0", "FALSE"]:
+if performMarkDupsEnv.upper() in ["0", "FALSE"]:
     performMarkDupsEnv = False
 if not os.path.isdir(inputFolderEnv):
     raise NotADirectoryError("Unable to find input folder at %s" %inputFolderEnv)
