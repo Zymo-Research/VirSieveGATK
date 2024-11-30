@@ -1,4 +1,4 @@
-FROM broadinstitute/gatk:4.1.9.0
+FROM broadinstitute/gatk:4.6.1.0
 
 RUN useradd -ms /bin/bash gatk
 
@@ -17,9 +17,9 @@ COPY ./gatkSupport /home/gatk/gatkSupport
 
 COPY ./*.py /home/gatk
 
-RUN chown -R gatk /home/gatk
+#RUN chown -R gatk /home/gatk
 
-USER gatk
+#USER gatk
 
 ENV PYTHONUNBUFFERED=1
 
