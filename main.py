@@ -116,6 +116,10 @@ def filterAlignmentArtifacts(inputVCFPath:str, inputBAMPath:str, outputFolder:st
     outputFilePath = gatkSupport.filterAlignmentArtifact.runFilterAlignmentArtifact(inputVCFPath, inputBAMPath, outputFolder)
     return outputFilePath
 
+def basicMutectFilterArtifacts(inputVCFPath:str, outputFolder:str=filteredVCFFolderEnv):
+    outputFilePath = gatkSupport.filterMutectCalls.runFilterMutectCalls(inputVCFPath, outputFolder)
+    return outputFilePath
+
 
 def main():
     inputFileList = getInputBAMFiles()
@@ -129,10 +133,11 @@ def main():
             deduplicatedBAM = readGroupedBAM
         bqsrBAM = runBQSR(deduplicatedBAM)
         rawVCF, orientationBiasFile, mutectBAMOut = runMutect2(bqsrBAM)
-        depthOfCoverageFileBaseName = runDepthOfCoverage(bqsrBAM)
-        orientationFilteredVCF = runOrientationBiasFilter(rawVCF, orientationBiasFile)
-        alignmentArtifactFilteredVCF = filterAlignmentArtifacts(orientationFilteredVCF, mutectBAMOut)
-        completedVCFs.append(alignmentArtifactFilteredVCF)
+        # depthOfCoverageFileBaseName = runDepthOfCoverage(bqsrBAM)
+        # orientationFilteredVCF = runOrientationBiasFilter(rawVCF, orientationBiasFile) # Skipping orientation bias analysis, from the looks of the amplicons, there is not expected to be balance with respect to F2R1 and F1R2 values for variants.
+        basicFilteredVCF = basicMutectFilterArtifacts(rawVCF)
+        # alignmentArtifactFilteredVCF = filterAlignmentArtifacts(basicFilteredVCF, mutectBAMOut) # Non-performant with high depth reads of amplicon panel
+        # completedVCFs.append(alignmentArtifactFilteredVCF)
     return completedVCFs
 
 

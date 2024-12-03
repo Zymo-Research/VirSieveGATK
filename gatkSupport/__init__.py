@@ -8,4 +8,5 @@ from . import samtools
 from . import readGroups
 from . import filterAlignmentArtifact
 from . import coverage
+from . import filterMutectCalls
 

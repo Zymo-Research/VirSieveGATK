@@ -22,7 +22,7 @@ def runMutect2(inputFilePath:str, outputFolder:str=defaultOutputFolder, referenc
     mutectAssemblyBAMPath = os.path.join(mutectAssemblyBAMFolder, mutectAssemblyBAMName)
     outputFilePath = os.path.join(outputFolder, outputFileName)
     orientationBiasFilePath = os.path.join(outputFolder, orientationBiasFileName)
-    mutectCommand = "%s Mutect2 --input %s --output %s --reference %s --f1r2-tar-gz %s --bam-output %s --create-output-bam-index" %(gatkExecutable, inputFilePath, outputFilePath, referenceSequence, orientationBiasFilePath, mutectAssemblyBAMPath)
+    mutectCommand = "%s Mutect2 --input %s --output %s --reference %s --max-reads-per-alignment-start 0 --dont-use-soft-clipped-bases true --linked-de-bruijn-graph true --downsampling-stride 50 --mitochondria-mode true --bam-output %s --create-output-bam-index" %(gatkExecutable, inputFilePath, outputFilePath, referenceSequence, mutectAssemblyBAMPath)
     print("RUN: %s" %mutectCommand)
     exitStatus = os.system(mutectCommand)
     if exitStatus != 0:
