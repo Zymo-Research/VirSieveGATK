@@ -13,7 +13,7 @@ def runFilterMutectCalls(inputVCFPath:str, outputFolder:str=defaultOutputFolder,
         referenceSequence = defaultRefSeq
     outputFileName = os.path.split(inputVCFPath)[1][:-4] + ".basicFilter.vcf"
     outputFilePath = os.path.join(outputFolder, outputFileName)
-    basicMutectFilterCommand = "%s FilterMutectCalls --reference %s --mitochondria-mode true --variant %s --output %s" % (gatkExecutable, referenceSequence, inputVCFPath, outputFilePath)
+    basicMutectFilterCommand = "%s FilterMutectCalls --reference %s --mitochondria-mode true --min-allele-fraction 0.01 --variant %s --output %s" % (gatkExecutable, referenceSequence, inputVCFPath, outputFilePath)
     print("RUN: %s" %basicMutectFilterCommand)
     exitStatus = os.system(basicMutectFilterCommand)
     if exitStatus != 0:
